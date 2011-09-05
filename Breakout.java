@@ -122,7 +122,7 @@ public class Breakout extends GraphicsProgram {
 	private void animateBall() {
 		while (true) {
 			ball.move(1, 1);
-			pause(50);
+			pause(5);
 		}
 	}
 	
