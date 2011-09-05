@@ -65,6 +65,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void setup() {
+		addMouseListeners();
 		drawBricks();
 		drawPaddle();
 		drawBall();
@@ -100,7 +101,11 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawPaddle() {
-		add(new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black), (WIDTH - PADDLE_WIDTH) / 2, HEIGHT - PADDLE_Y_OFFSET);
+		add(paddle, (WIDTH - PADDLE_WIDTH) / 2, HEIGHT - PADDLE_Y_OFFSET);
+	}
+	
+	public void mouseMoved(MouseEvent e) {
+		paddle.setLocation(e.getX(), HEIGHT - PADDLE_Y_OFFSET);
 	}
 	
 	private void drawBall() {
@@ -110,5 +115,7 @@ public class Breakout extends GraphicsProgram {
 	private void play() {
 		
 	}
+	
+	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 
 }
