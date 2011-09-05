@@ -110,6 +110,8 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawBall() {
+		ball.setFilled(true);
+		ball.setFillColor(Color.black);
 		add(ball, WIDTH / 2 - BALL_RADIUS, HEIGHT / 2 - BALL_RADIUS);
 	}
 	
