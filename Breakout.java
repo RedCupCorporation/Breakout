@@ -89,13 +89,13 @@ public class Breakout extends GraphicsProgram {
 	private void drawRow(Color color, int y) {
 		for (int i = 0; i < NBRICKS_PER_ROW; i++) {
 			int widthOfAllBricks = BRICK_WIDTH * NBRICKS_PER_ROW + BRICK_SEP * (NBRICKS_PER_ROW - 1);
-			int firstRowX = (WIDTH - widthOfAllBricks) / 2;
-			int x = firstRowX + i * (BRICK_WIDTH + BRICK_SEP);
+			double firstRowX = (WIDTH - widthOfAllBricks) / 2;
+			double x = firstRowX + i * (BRICK_WIDTH + BRICK_SEP);
 			drawBrick(x, y, color);
 		}
 	}
 	
-	private void drawBrick(int x, int y, Color color) {
+	private void drawBrick(double x, int y, Color color) {
 		add(new GBrick(BRICK_WIDTH, BRICK_HEIGHT, color), x, y);
 	}
 	
