@@ -65,7 +65,49 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void setup() {
+		drawBricks();
+		drawPaddle();
+		drawBall();
+	}
+	
+	private void drawBricks() {
+		for (int i = 0; i < NBRICK_ROWS; i++) {
+			Color color;
+			switch(i / 2) {
+				case 0: color = Color.red; break;
+				case 1: color = Color.orange; break;
+				case 2: color = Color.yellow; break;
+				case 3: color = Color.green; break;
+				case 4: color = Color.cyan; break;
+				default: color = Color.black; break;
+			}
+			int y = BRICK_Y_OFFSET + i * (BRICK_HEIGHT + BRICK_SEP);
+			drawRow(color, y);
+		}
+	}
+	
+	private void drawRow(Color color, int y) {
+		for (int i = 0; i < NBRICKS_PER_ROW; i++) {
+			int widthOfAllBricks = BRICK_WIDTH * NBRICKS_PER_ROW + BRICK_SEP * (NBRICKS_PER_ROW - 1);
+			int firstRowX = (WIDTH - widthOfAllBricks) / 2;
+			int x = firstRowX + i * (BRICK_WIDTH + BRICK_SEP);
+			drawBrick(x, y, color);
+		}
+	}
+	
+	private void drawBrick(int x, int y, Color color) {
+		add(new GBrick(BRICK_WIDTH, BRICK_HEIGHT, color), x, y);
+	}
+	
+	private void drawPaddle() {
 		
+	}
+	
+	private void drawBall() {
+		
+	}
+	
+	private void play() {
 		
 	}
 
