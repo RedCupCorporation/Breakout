@@ -110,7 +110,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawBall() {
-		
+		add(ball, WIDTH / 2 - BALL_RADIUS, HEIGHT / 2 - BALL_RADIUS);
 	}
 	
 	private void play() {
@@ -118,5 +118,6 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
-
+	private GOval ball = new GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS);
+	
 }
