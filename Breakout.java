@@ -126,6 +126,8 @@ public class Breakout extends GraphicsProgram {
 		while (true) {
 			ball.move(vx, vy);
 			pause(10);
+			if (ball.getX() == 0 || ball.getX() == WIDTH - 2 * BALL_RADIUS) vx = -vx;
+			if (ball.getY() == 0 || ball.getY() == HEIGHT - 2 * BALL_RADIUS) vy = -vy;
 		}
 	}
 	
