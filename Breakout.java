@@ -120,13 +120,18 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void animateBall() {
+		vx = rgen.nextDouble(1.0, 3.0);
+		if (rgen.nextBoolean()) vx = -vx;
+		vy = 3.0;
 		while (true) {
-			ball.move(1, 1);
+			ball.move(vx, vy);
 			pause(5);
 		}
 	}
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GOval ball = new GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS);
+	private double vx, vy;
+	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 }
