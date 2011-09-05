@@ -116,7 +116,14 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void play() {
-		
+		animateBall();
+	}
+	
+	private void animateBall() {
+		while (true) {
+			ball.move(1, 1);
+			pause(500);
+		}
 	}
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
