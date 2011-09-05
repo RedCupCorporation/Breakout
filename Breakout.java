@@ -75,12 +75,12 @@ public class Breakout extends GraphicsProgram {
 		for (int i = 0; i < NBRICK_ROWS; i++) {
 			Color color;
 			switch(i / 2) {
-				case 0: color = Color.red; break;
-				case 1: color = Color.orange; break;
-				case 2: color = Color.yellow; break;
-				case 3: color = Color.green; break;
-				case 4: color = Color.cyan; break;
-				default: color = Color.black; break;
+			case 0: color = Color.red; break;
+			case 1: color = Color.orange; break;
+			case 2: color = Color.yellow; break;
+			case 3: color = Color.green; break;
+			case 4: color = Color.cyan; break;
+			default: color = Color.black; break;
 			}
 			int y = BRICK_Y_OFFSET + i * (BRICK_HEIGHT + BRICK_SEP);
 			drawRow(color, y);
@@ -120,6 +120,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void animateBall() {
+		ball.sendToBack();
 		vx = rgen.nextDouble(1.0, 3.0);
 		if (rgen.nextBoolean()) vx = -vx;
 		vy = 3.0;
@@ -128,11 +129,43 @@ public class Breakout extends GraphicsProgram {
 			pause(10);
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
+			getCollidingObject(ball.getLocation());
+			if (collidee != null) {
+				if (surface == 6 || surface == 12) vy = -vy;
+				if (surface == 3 || surface == 9) vx = -vx;
+				if (collidee != paddle) remove(collidee);
+			}
 		}
 	}
 	
+	private void getCollidingObject(GPoint ball) {
+		/*
+		 * Optimization: only check 3 corners in the direction the ball is heading
+		 */
+		for (int i = 0; i < 4; i++) {
+			switch (i) {
+			case 0: collidee = getElementAt(ball.getX(), ball.getY() + BALL_RADIUS); 
+					surface = 9;
+					break;
+			case 1: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY()); 
+					surface = 12;
+					break;
+			case 2: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS); 
+					surface = 6;
+					break;
+			case 3: collidee = getElementAt(ball.getX() + 2 * BALL_RADIUS, ball.getY() + BALL_RADIUS); 
+					surface = 3;
+					break;
+			}
+			if (collidee != null) break;
+		}
+	}
+	
+	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GOval ball = new GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS);
+	private GObject collidee = null;
+	private int surface;
 	private double vx, vy;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
