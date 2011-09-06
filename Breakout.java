@@ -114,10 +114,8 @@ public class Breakout extends GraphicsProgram {
 		for (int i = 0; i < turnsLeft; i++) {
 			int x = BALLS_OFFSET + i * (BALL_RADIUS + 3);
 			int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
-			GOval miniBall = new GOval(x, y, BALL_RADIUS, BALL_RADIUS);
-			miniBall.setFilled(true);
-			miniBall.setFillColor(Color.black);
-			add(miniBall);
+			GBall miniBall = new GBall(BALL_RADIUS, BALL_RADIUS, Color.black);
+			add(miniBall, x, y);
 		}		
 	}
 	
@@ -127,8 +125,6 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawBall() {
-		ball.setFilled(true);
-		ball.setFillColor(Color.black);
 		add(ball, WIDTH / 2 - BALL_RADIUS, HEIGHT / 2 - BALL_RADIUS);
 		ball.sendToBack();
 	}
@@ -236,7 +232,7 @@ public class Breakout extends GraphicsProgram {
 	
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
-	private GOval ball = new GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS);
+	private GBall ball = new GBall(2 * BALL_RADIUS, 2 * BALL_RADIUS, Color.black);
 	private GObject collidee = null;
 	private int surface = 0;
 	private double vx, vy;
