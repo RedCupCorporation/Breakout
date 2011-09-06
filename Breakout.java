@@ -120,7 +120,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void animateBall() {
-		ball.sendToBack();
+		//ball.sendToBack();
 		vx = rgen.nextDouble(1.0, 3.0);
 		if (rgen.nextBoolean()) vx = -vx;
 		vy = 3.0;
