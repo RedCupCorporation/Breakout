@@ -143,22 +143,22 @@ public class Breakout extends GraphicsProgram {
 		 * Optimization: only check 3 corners in the direction the ball is heading
 		 */
 		GObject collidee = null;
-		for (int i = 0; i < 4; i++) {
-			switch (i) {
-			case 0: collidee = getElementAt(ball.getX(), ball.getY() + BALL_RADIUS); 
-					surface = 9;
-					break;
-			case 1: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY()); 
-					surface = 12;
-					break;
-			case 2: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS); 
-					surface = 6;
-					break;
-			case 3: collidee = getElementAt(ball.getX() + 2 * BALL_RADIUS, ball.getY() + BALL_RADIUS); 
-					surface = 3;
-					break;
-			}
-			//if (collidee != null) break;
+		GPoint left = new GPoint(ball.getX(), ball.getY() + BALL_RADIUS);
+		GPoint right = new GPoint(ball.getX() + 2 * BALL_RADIUS, ball.getY() + BALL_RADIUS);
+		GPoint top = new GPoint(ball.getX() + BALL_RADIUS, ball.getY());
+		GPoint bottom = new GPoint(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS);
+		if (getElementAt(bottom) != null) {
+			collidee = getElementAt(bottom);
+			surface = 6;
+		} else if (getElementAt(top) != null) {
+			collidee = getElementAt(top);
+			surface = 12;
+		} else if (getElementAt(left) != null) {
+			collidee = getElementAt(left);
+			surface = 9;
+		} else if (getElementAt(right) != null) {
+			collidee = getElementAt(right);
+			surface = 3;
 		}
 		return collidee;
 	}
