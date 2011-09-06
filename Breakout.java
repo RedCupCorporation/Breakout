@@ -56,6 +56,11 @@ public class Breakout extends GraphicsProgram {
 
 /** Number of turns */
 	private static final int NTURNS = 3;
+	
+/** Other constants */
+	private static final int PAUSE_TIME = 10;
+	private static final double MAX_VELOCITY = 3.0;
+	private static final double MIN_VELOCITY = 1.0;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -68,7 +73,6 @@ public class Breakout extends GraphicsProgram {
 		addMouseListeners();
 		drawBricks();
 		drawPaddle();
-		drawBall();
 	}
 	
 	private void drawBricks() {
@@ -113,24 +117,39 @@ public class Breakout extends GraphicsProgram {
 		ball.setFilled(true);
 		ball.setFillColor(Color.black);
 		add(ball, WIDTH / 2 - BALL_RADIUS, HEIGHT / 2 - BALL_RADIUS);
+		ball.sendToBack();
 	}
 	
 	private void play() {
-		animateBall();
+		while (result == 0 && turnsLeft > 0) {
+			animateBall();
+		}
 	}
 	
 	private void animateBall() {
-		ball.sendToBack();
+		
+		/* Setup the ball and wait for the click */
+		
+		drawBall();
 		vx = rgen.nextDouble(MIN_VELOCITY, MAX_VELOCITY);
 		if (rgen.nextBoolean()) vx = -vx;
 		vy = MAX_VELOCITY;
 		waitForClick();
-		while (ball.getY() < HEIGHT - 2 * BALL_RADIUS) {
+		
+		/* Run the game */
+		
+		while (true) {
 			ball.move(vx, vy);
 			pause(PAUSE_TIME);
+			
+			/* Check for wall collisions */
+			
 			if (ball.getX() < 0) vx = Math.abs(vx);
 			if (ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -Math.abs(vx);
 			if (ball.getY() < 0) vy = Math.abs(vy);
+			
+			/* Check for collisions with paddle or bricks */
+			
 			getCollidingObject();
 			if (collidee == paddle) {
 				if (surface == 6) {
@@ -145,14 +164,27 @@ public class Breakout extends GraphicsProgram {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
 				remove(collidee);
+				bricksLeft--;
 			}	
+			
+			/* End turn if ball hits bottom wall */
+			
+			if (ball.getY() > HEIGHT - 2 * BALL_RADIUS) {
+				remove(ball);
+				result = 0;
+				turnsLeft--;
+				break;
+			}
+			
+			/* End game if ball hits final brick */
+			
+			if (bricksLeft == 0) {
+				break;
+			}
 		}
 	}
 	
 	private void getCollidingObject() {
-		/*
-		 * Optimization: only check 3 corners in the direction the ball is heading
-		 */
 		GPoint left = new GPoint(ball.getX() - 1, ball.getY() + BALL_RADIUS);
 		GPoint right = new GPoint(ball.getX() + 2 * BALL_RADIUS + 1, ball.getY() + BALL_RADIUS);
 		GPoint top = new GPoint(ball.getX() + BALL_RADIUS, ball.getY() - 1);
@@ -181,9 +213,9 @@ public class Breakout extends GraphicsProgram {
 	private GObject collidee = null;
 	private int surface = 0;
 	private double vx, vy;
-	private static final int PAUSE_TIME = 10;
-	private static final double MAX_VELOCITY = 3.0;
-	private static final double MIN_VELOCITY = 1.0;
+	private int turnsLeft = NTURNS;
+	private int result = 0;
+	private int bricksLeft = NBRICK_ROWS * NBRICKS_PER_ROW;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 }
