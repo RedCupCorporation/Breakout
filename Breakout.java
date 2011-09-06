@@ -129,7 +129,7 @@ public class Breakout extends GraphicsProgram {
 			pause(10);
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
-			GObject collidee = getCollidingObject(ball.getLocation());
+			GObject collidee = getCollidingObject();
 			if (collidee == paddle) {
 				if (surface == 6 || surface == 12) vx = -vx;
 				if (surface == 3 || surface == 9) vy = -vy;
@@ -138,7 +138,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
-	private GObject getCollidingObject(GPoint ball) {
+	private GObject getCollidingObject() {
 		/*
 		 * Optimization: only check 3 corners in the direction the ball is heading
 		 */
