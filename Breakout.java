@@ -111,12 +111,18 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawLivesLeft() {
-		for (int i = 0; i < turnsLeft; i++) {
+		for (int i = 0; i < livesLeft; i++) {
 			int x = BALLS_OFFSET + i * (BALL_RADIUS + 3);
 			int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
 			GBall miniBall = new GBall(BALL_RADIUS, BALL_RADIUS, Color.black);
 			add(miniBall, x, y);
 		}		
+	}
+	
+	private void updateLivesLeft() {
+		int x = BALLS_OFFSET + livesLeft * (BALL_RADIUS + 3);
+		int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
+		remove(getElementAt(x, y));
 	}
 	
 	public void mouseMoved(MouseEvent e) {
@@ -130,7 +136,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void play() {
-		while (result == 0 && turnsLeft > 0) {
+		while (result == 0 && livesLeft > 0) {
 			animateBall();
 		}
 		endGame();
@@ -182,8 +188,8 @@ public class Breakout extends GraphicsProgram {
 			if (ball.getY() > HEIGHT - 2 * BALL_RADIUS) {
 				remove(ball);
 				result = 0;
-				turnsLeft--;
-				drawLivesLeft();
+				livesLeft--;
+				updateLivesLeft();
 				break;
 			}
 			
@@ -236,7 +242,7 @@ public class Breakout extends GraphicsProgram {
 	private GObject collidee = null;
 	private int surface = 0;
 	private double vx, vy;
-	private int turnsLeft = NTURNS;
+	private int livesLeft = NTURNS;
 	private int result = 0;
 	private int bricksLeft = NBRICK_ROWS * NBRICKS_PER_ROW;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
