@@ -126,7 +126,7 @@ public class Breakout extends GraphicsProgram {
 		vy = 3.0;
 		while (true) {
 			GObject collidee = null;
-			GLabel sign = new GLabel("" + collidee, 10, 10); add(sign);
+			GLabel sign = new GLabel("" + collidee + ", surface = " + surface, 10, 10); add(sign);
 			ball.move(vx, vy);
 			pause(500);
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
