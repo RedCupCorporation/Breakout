@@ -229,6 +229,10 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
+	private void endGame() {
+		
+	}
+	
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GOval ball = new GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS);
