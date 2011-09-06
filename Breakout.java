@@ -278,7 +278,18 @@ public class Breakout extends GraphicsProgram {
 			add(winner, (WIDTH - winner.getWidth()) / 2, (HEIGHT - winner.getAscent()) / 2);
 		}
 		waitForClick();
+		restart();
+	}
+	
+	private void restart() {
 		removeAll();
+		collidee = null;                              
+		surface = 0;                                      
+		livesLeft = NTURNS;                               
+		result = 0;                                       
+		points = 0;                                       
+		bricksLeft = STARTING_BRICKS;                     
+		pointDisplay = new GLabel("points: " + points);
 		run();
 	}
 	
