@@ -62,6 +62,7 @@ public class Breakout extends GraphicsProgram {
 	private static final double MAX_VELOCITY = 3.0;
 	private static final double MIN_VELOCITY = 1.0;
 	private static final int BALLS_OFFSET = 5;
+	private static final double VX_SCALE = 2.0;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -177,6 +178,7 @@ public class Breakout extends GraphicsProgram {
 				if (surface == 6) {
 					ball.setLocation(ball.getX(), HEIGHT - PADDLE_Y_OFFSET - 2 * BALL_RADIUS);
 					vy = -vy;
+					vx = updateVX();
 				} else if (surface == 3) {
 					vx = -Math.abs(vx);
 				} else if (surface == 9) {
@@ -245,11 +247,22 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
+	private double updateVX() {
+		double midBall = ball.getX() + BALL_RADIUS;
+		double paddlePct = (midBall - paddle.getX()) / PADDLE_WIDTH - 0.5;
+		double newVX = Math.min(MAX_VELOCITY, Math.max(-MAX_VELOCITY, vx + paddlePct * VX_SCALE));
+		return newVX;
+	}
+	
 	private void endGame() {
 		if (result == 0) {
 			GLabel loser = new GLabel("You Lose");
 			loser.setFont("SansSerif-bold-50");
 			add(loser, (WIDTH - loser.getWidth()) / 2, (HEIGHT - loser.getAscent()) / 2);
+		} else {
+			GLabel winner = new GLabel("You Win");
+			winner.setFont("SansSerif-bold-50");
+			add(winner, (WIDTH - winner.getWidth()) / 2, (HEIGHT - winner.getAscent()) / 2);
 		}
 	}
 	
