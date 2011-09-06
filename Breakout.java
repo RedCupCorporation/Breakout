@@ -133,7 +133,7 @@ public class Breakout extends GraphicsProgram {
 			if (collidee != null) {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
-				if (collidee != paddle) remove(collidee);
+				//if (collidee != paddle) remove(collidee);
 			}
 		}
 	}
