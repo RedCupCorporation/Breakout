@@ -290,7 +290,7 @@ public class Breakout extends GraphicsProgram {
 		points += (bricksLeft - 1) / (STARTING_BRICKS / a) + b;
 		remove(pointDisplay);
 		drawPoints();
-		add(new GLabel("" + brick.getColor()), WIDTH - 100, HEIGHT - 5);
+		add(new GLabel("" + brick.getColor()), WIDTH - 300, HEIGHT - 5);
 	}
 	
 	
