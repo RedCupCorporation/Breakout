@@ -39,7 +39,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int NBRICK_ROWS = 10;
 
 /** Separation between bricks */
-	private static final int BRICK_SEP = 4;
+	private static final int BRICK_SEP = 5;
 
 /** Width of a brick */
 	private static final int BRICK_WIDTH =
@@ -59,7 +59,7 @@ public class Breakout extends GraphicsProgram {
 	
 /** Other constants */
 	private static final int PAUSE_TIME = 10;
-	private static final double MAX_VELOCITY = 2.5;
+	private static final double MAX_VELOCITY = 3.0;
 	private static final double MIN_VELOCITY = 1.0;
 	private static final int BALLS_OFFSET = 5;
 	private static final double VX_SCALE = 3.0;
