@@ -249,7 +249,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private double updateVX() {
 		double midBall = ball.getX() + BALL_RADIUS;
-		double paddlePct = (midBall - paddle.getX()) / PADDLE_WIDTH - 0.5;
+		double paddlePct = ((midBall - paddle.getX()) / PADDLE_WIDTH - 0.5) * 2;
 		double newVX = Math.min(MAX_VELOCITY, Math.max(-MAX_VELOCITY, vx + paddlePct * VX_SCALE));
 		return newVX;
 	}
