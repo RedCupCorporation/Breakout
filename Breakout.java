@@ -125,11 +125,12 @@ public class Breakout extends GraphicsProgram {
 		if (rgen.nextBoolean()) vx = -vx;
 		vy = MAX_VELOCITY;
 		waitForClick();
-		while (true) {
+		while (ball.getY() < HEIGHT - 2 * BALL_RADIUS) {
 			ball.move(vx, vy);
 			pause(PAUSE_TIME);
-			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
-			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
+			if (ball.getX() < 0) vx = Math.abs(vx);
+			if (ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -Math.abs(vx);
+			if (ball.getY() < 0) vy = Math.abs(vy);
 			getCollidingObject();
 			if (collidee == paddle) {
 				if (surface == 6) {
