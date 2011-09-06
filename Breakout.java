@@ -290,7 +290,7 @@ public class Breakout extends GraphicsProgram {
 		} else if (brick.getColor() == Color.green) {
 			a = -12; b = 16;
 		} else if (brick.getColor() == Color.cyan) {
-			a = -20; b = -20;
+			a = -20; b = 20;
 		}
 		points += (bricksLeft - 1) / (STARTING_BRICKS / a) + b;
 		remove(pointDisplay);
