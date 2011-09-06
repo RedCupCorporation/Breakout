@@ -120,8 +120,8 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void updateLivesLeft() {
-		int x = BALLS_OFFSET + (livesLeft - 1) * (BALL_RADIUS + 3);
-		int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
+		int x = BALLS_OFFSET + livesLeft * (BALL_RADIUS + 3) + BALL_RADIUS / 2;
+		int y = HEIGHT - BALL_RADIUS / 2 - BALLS_OFFSET;
 		GObject ball = getElementAt(x, y);
 		remove(ball);
 	}
