@@ -123,6 +123,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawPoints() {
+		pointDisplay.setLabel("points: " + points);
 		add(pointDisplay, WIDTH - pointDisplay.getWidth() - 5, HEIGHT - 5);
 	}
 	
@@ -288,7 +289,7 @@ public class Breakout extends GraphicsProgram {
 		}
 		points += (bricksLeft - 1) / (STARTING_BRICKS / a) + b;
 		remove(pointDisplay);
-		//drawPoints();
+		drawPoints();
 	}
 	
 	
