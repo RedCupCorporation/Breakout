@@ -247,9 +247,8 @@ public class Breakout extends GraphicsProgram {
 	
 	private void endGame() {
 		if (result == 0) {
-			removeAll();
 			GLabel loser = new GLabel("You Lose");
-			loser.setFont("SansSerif-bold-30");
+			loser.setFont("SansSerif-bold-50");
 			add(loser, (WIDTH - loser.getWidth()) / 2, (HEIGHT - loser.getAscent()) / 2);
 		}
 	}
