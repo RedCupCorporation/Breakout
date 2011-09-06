@@ -130,10 +130,10 @@ public class Breakout extends GraphicsProgram {
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
 			GObject collidee = getCollidingObject();
-			if (collidee == paddle) {
+			if (collidee != null) {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
-				//if (collidee != paddle) remove(collidee);
+				if (collidee != paddle) remove(collidee);
 			}
 		}
 	}
