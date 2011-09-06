@@ -62,7 +62,7 @@ public class Breakout extends GraphicsProgram {
 	private static final double MAX_VELOCITY = 3.0;
 	private static final double MIN_VELOCITY = 1.0;
 	private static final int BALLS_OFFSET = 5;
-	private static final double VX_SCALE = 2.0;
+	private static final double VX_SCALE = 3.0;
 
 /* Method: run() */
 /** Runs the Breakout program. */
