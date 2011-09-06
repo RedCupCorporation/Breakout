@@ -123,7 +123,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawPoints() {
-		add(pointDisplay);
+		add(pointDisplay, WIDTH - pointDisplay.getWidth() - 5, HEIGHT - 5);
 	}
 	
 	private void updateLivesLeft() {
