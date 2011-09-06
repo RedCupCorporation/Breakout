@@ -265,7 +265,7 @@ public class Breakout extends GraphicsProgram {
 	private void endGame() {
 		remove(pointDisplay);
 		pointDisplay.setFont("SansSerif-35");
-		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT / 3);
+		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT * 2 / 3);
 		if (result == 0) {
 			GLabel loser = new GLabel("You Lose");
 			loser.setFont("SansSerif-bold-50");
