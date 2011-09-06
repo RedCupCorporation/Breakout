@@ -125,13 +125,12 @@ public class Breakout extends GraphicsProgram {
 		if (rgen.nextBoolean()) vx = -vx;
 		vy = 3.0;
 		while (true) {
-			GObject collidee = null;
 			GLabel sign = new GLabel("" + collidee + ", surface = " + surface, 10, 10); add(sign);
 			ball.move(vx, vy);
 			pause(200);
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
-			collidee = getCollidingObject();
+			getCollidingObject();
 			if (collidee == paddle) {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
@@ -141,11 +140,10 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
-	private GObject getCollidingObject() {
+	private void getCollidingObject() {
 		/*
 		 * Optimization: only check 3 corners in the direction the ball is heading
 		 */
-		GObject collidee = null;
 		GPoint left = new GPoint(ball.getX(), ball.getY() + BALL_RADIUS);
 		GPoint right = new GPoint(ball.getX() + 2 * BALL_RADIUS, ball.getY() + BALL_RADIUS);
 		GPoint top = new GPoint(ball.getX() + BALL_RADIUS, ball.getY());
@@ -163,12 +161,12 @@ public class Breakout extends GraphicsProgram {
 			collidee = getElementAt(right);
 			surface = 3;
 		}
-		return collidee;
 	}
 	
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GOval ball = new GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS);
+	private GObject collidee = null;
 	private int surface = 0;
 	private double vx, vy;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
