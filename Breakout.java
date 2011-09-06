@@ -145,16 +145,16 @@ public class Breakout extends GraphicsProgram {
 		GObject collidee = null;
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: collidee = getElementAt(ball.getX(), ball.getY() + BALL_RADIUS); 
+			case 0: collidee = getElementAt(ball.getX() + 10, ball.getY() + BALL_RADIUS + 10); 
 					surface = 9;
 					break;
-			case 1: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY()); 
+			case 1: collidee = getElementAt(ball.getX() + BALL_RADIUS + 10, ball.getY() + 10); 
 					surface = 12;
 					break;
-			case 2: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS); 
+			case 2: collidee = getElementAt(ball.getX() + BALL_RADIUS + 10, ball.getY() + 2 * BALL_RADIUS + 10); 
 					surface = 6;
 					break;
-			case 3: collidee = getElementAt(ball.getX() + 2 * BALL_RADIUS, ball.getY() + BALL_RADIUS); 
+			case 3: collidee = getElementAt(ball.getX() + 2 * BALL_RADIUS + 10, ball.getY() + BALL_RADIUS + 10); 
 					surface = 3;
 					break;
 			}
