@@ -122,7 +122,7 @@ public class Breakout extends GraphicsProgram {
 	private void updateLivesLeft() {
 		int x = BALLS_OFFSET + livesLeft * (BALL_RADIUS + 3);
 		int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
-		//remove(getElementAt(x, y));
+		remove(getElementAt(x, y));
 	}
 	
 	public void mouseMoved(MouseEvent e) {
