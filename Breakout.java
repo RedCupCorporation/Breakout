@@ -114,7 +114,7 @@ public class Breakout extends GraphicsProgram {
 		for (int i = 0; i < turnsLeft; i++) {
 			int x = BALLS_OFFSET + i * (BALL_RADIUS + 3);
 			int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
-			GOval miniBall = new GOval(BALL_RADIUS, BALL_RADIUS, x, y);
+			GOval miniBall = new GOval(x, y, BALL_RADIUS, BALL_RADIUS);
 			miniBall.setFilled(true);
 			miniBall.setFillColor(Color.black);
 			add(miniBall);
