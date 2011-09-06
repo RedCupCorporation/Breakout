@@ -282,13 +282,13 @@ public class Breakout extends GraphicsProgram {
 	private void updatePoints(GObject brick) {
 		int a = 1; int b = 1;
 		if (brick.getColor() == Color.red) {
-			a = 20; b = 4;
+			a = 20; b = 1;
 		} else if (brick.getColor() == Color.orange) {
-			a = 12; b = 8;
+			a = 10; b = 5;
 		} else if (brick.getColor() == Color.yellow) {
-			a = 1; b = 12;
+			a = 1; b = 10;
 		} else if (brick.getColor() == Color.green) {
-			a = -12; b = 16;
+			a = -10; b = 15;
 		} else if (brick.getColor() == Color.cyan) {
 			a = -20; b = 20;
 		}
