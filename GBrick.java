@@ -13,6 +13,7 @@ public class GBrick extends GRect {
 		super(width, height);
 		setFilled(true);
 		setFillColor(color);
+		setColor(color);
 	}
 
 }
