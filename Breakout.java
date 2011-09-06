@@ -185,10 +185,16 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void getCollidingObject() {
+		
+		/* Define 3, 6, 9, and 12 o'clock locations of the ball */
+		
 		GPoint left = new GPoint(ball.getX() - 1, ball.getY() + BALL_RADIUS);
 		GPoint right = new GPoint(ball.getX() + 2 * BALL_RADIUS + 1, ball.getY() + BALL_RADIUS);
 		GPoint top = new GPoint(ball.getX() + BALL_RADIUS, ball.getY() - 1);
 		GPoint bottom = new GPoint(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS + 1);
+		
+		/* Find GObject that the ball collided with, if it exists */
+		
 		if (getElementAt(bottom) != null) {
 			collidee = getElementAt(bottom);
 			surface = 6;
