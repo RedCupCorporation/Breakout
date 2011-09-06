@@ -125,18 +125,19 @@ public class Breakout extends GraphicsProgram {
 		if (rgen.nextBoolean()) vx = -vx;
 		vy = 3.0;
 		while (true) {
-			GLabel sign = new GLabel("" + collidee + ", surface = " + surface, 10, 10); add(sign);
+			//GLabel sign = new GLabel("" + collidee + ", surface = " + surface, 10, 10); add(sign);
 			ball.move(vx, vy);
 			pause(10);
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
 			getCollidingObject();
-			if (collidee != null) {
-				if (surface == 6 || surface == 12) vy = -vy;
+			if (collidee == paddle) {
+				if (surface == 6) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
-				if (collidee != paddle) remove(collidee);
+			} else if (collidee != null) {
+				remove(collidee);
 			}
-			remove(sign);
+			//remove(sign);
 		}
 	}
 	
