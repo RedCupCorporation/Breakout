@@ -120,6 +120,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void updateLivesLeft() {
+		livesLeft--;
 		int x = BALLS_OFFSET + livesLeft * (BALL_RADIUS + 3) + BALL_RADIUS / 2;
 		int y = HEIGHT - BALL_RADIUS / 2 - BALLS_OFFSET;
 		GObject ball = getElementAt(x, y);
@@ -168,6 +169,10 @@ public class Breakout extends GraphicsProgram {
 			/* Check for collisions with paddle or bricks */
 			
 			getCollidingObject();
+			
+			/* Reverse ball direction after hitting paddle
+			 * Don't let the ball get stuck inside the paddle */
+			
 			if (collidee == paddle) {
 				if (surface == 6) {
 					ball.setLocation(ball.getX(), HEIGHT - PADDLE_Y_OFFSET - 2 * BALL_RADIUS);
@@ -177,7 +182,14 @@ public class Breakout extends GraphicsProgram {
 				} else if (surface == 9) {
 					vx = Math.abs(vx);
 				}
+				
+				/* If the ball hits one of the miniballs denoting lives left, ignore it */
+				
 			} else if (collidee != null && collidee.getY() > HEIGHT - PADDLE_Y_OFFSET) {
+				
+				/* If the ball hits a brick, reverse the ball's direction 
+				 * Allows for weirdness with ball tunnelling through bricks */
+				
 			} else if (collidee != null) {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
@@ -190,7 +202,6 @@ public class Breakout extends GraphicsProgram {
 			if (ball.getY() > HEIGHT - 2 * BALL_RADIUS) {
 				remove(ball);
 				result = 0;
-				livesLeft--;
 				updateLivesLeft();
 				break;
 			}
@@ -235,7 +246,12 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void endGame() {
-		
+		if (result == 0) {
+			removeAll();
+			GLabel loser = new GLabel("You Lose");
+			loser.setFont("SansSerif-bold-30");
+			add(loser, (WIDTH - loser.getWidth()) / 2, (HEIGHT - loser.getAscent()) / 2);
+		}
 	}
 	
 	
