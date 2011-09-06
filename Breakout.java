@@ -187,6 +187,7 @@ public class Breakout extends GraphicsProgram {
 				remove(ball);
 				result = 0;
 				turnsLeft--;
+				drawLivesLeft();
 				break;
 			}
 			
