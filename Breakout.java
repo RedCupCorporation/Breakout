@@ -286,7 +286,8 @@ public class Breakout extends GraphicsProgram {
 		} else if (brick.getColor() == Color.cyan) {
 			a = -5; b = 5;
 		}
-		points += (bricksLeft - 1) / (STARTING_BRICKS / a) + b;
+		points += 5;
+		//points += (bricksLeft - 1) / (STARTING_BRICKS / a) + b;
 		remove(pointDisplay);
 		drawPoints();
 	}
