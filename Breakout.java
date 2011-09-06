@@ -177,7 +177,7 @@ public class Breakout extends GraphicsProgram {
 				} else if (surface == 9) {
 					vx = Math.abs(vx);
 				}
-			} else if (collidee.getY() > HEIGHT - PADDLE_Y_OFFSET) {
+			} else if (collidee != null && collidee.getY() > HEIGHT - PADDLE_Y_OFFSET) {
 			} else if (collidee != null) {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
