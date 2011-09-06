@@ -61,6 +61,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int PAUSE_TIME = 10;
 	private static final double MAX_VELOCITY = 3.0;
 	private static final double MIN_VELOCITY = 1.0;
+	private static final int BALLS_OFFSET = 5;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -73,6 +74,7 @@ public class Breakout extends GraphicsProgram {
 		addMouseListeners();
 		drawBricks();
 		drawPaddle();
+		drawLivesLeft();
 	}
 	
 	private void drawBricks() {
@@ -108,6 +110,14 @@ public class Breakout extends GraphicsProgram {
 		add(paddle, (WIDTH - PADDLE_WIDTH) / 2, HEIGHT - PADDLE_Y_OFFSET);
 	}
 	
+	private void drawLivesLeft() {
+		int x = BALLS_OFFSET + i * (BALL_RADIUS + 3);
+		int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
+		for (int i = 0; i < turnsLeft; i++) {
+			add(new GOval(BALL_RADIUS, BALL_RADIUS, x, y));
+		}		
+	}
+	
 	public void mouseMoved(MouseEvent e) {
 		int x = Math.min(WIDTH - PADDLE_WIDTH, Math.max(0, e.getX() - PADDLE_WIDTH / 2));
 		paddle.setLocation(x, HEIGHT - PADDLE_Y_OFFSET);
@@ -124,6 +134,7 @@ public class Breakout extends GraphicsProgram {
 		while (result == 0 && turnsLeft > 0) {
 			animateBall();
 		}
+		endGame();
 	}
 	
 	private void animateBall() {
@@ -179,6 +190,8 @@ public class Breakout extends GraphicsProgram {
 			/* End game if ball hits final brick */
 			
 			if (bricksLeft == 0) {
+				remove(ball);
+				result = 1;
 				break;
 			}
 		}
