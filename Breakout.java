@@ -150,16 +150,13 @@ public class Breakout extends GraphicsProgram {
 		if (getElementAt(bottom) != null) {
 			collidee = getElementAt(bottom);
 			surface = 6;
-		} 
-		if (getElementAt(top) != null) {
+		} else if (getElementAt(top) != null) {
 			collidee = getElementAt(top);
 			surface = 12;
-		} 
-		if (getElementAt(left) != null) {
+		} else if (getElementAt(left) != null) {
 			collidee = getElementAt(left);
 			surface = 9;
-		} 
-		if (getElementAt(right) != null) {
+		} else if (getElementAt(right) != null) {
 			collidee = getElementAt(right);
 			surface = 3;
 		}
