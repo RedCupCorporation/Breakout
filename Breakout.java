@@ -123,7 +123,7 @@ public class Breakout extends GraphicsProgram {
 		ball.sendToBack();
 		vx = rgen.nextDouble(1.0, 3.0);
 		if (rgen.nextBoolean()) vx = -vx;
-		vy = 1.0;
+		vy = 3.0;
 		while (true) {
 			ball.move(vx, vy);
 			pause(10);
@@ -131,7 +131,7 @@ public class Breakout extends GraphicsProgram {
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
 			GObject collidee = getCollidingObject();
 			if (collidee == paddle) {
-				if (surface == 6 || surface == 12) vy = -vy;
+				vy = -vy;
 				//if (surface == 3 || surface == 9) vy = -vy;
 				//if (collidee != paddle) remove(collidee);
 			}
