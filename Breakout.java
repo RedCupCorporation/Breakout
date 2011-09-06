@@ -277,6 +277,9 @@ public class Breakout extends GraphicsProgram {
 			winner.setFont("SansSerif-bold-50");
 			add(winner, (WIDTH - winner.getWidth()) / 2, (HEIGHT - winner.getAscent()) / 2);
 		}
+		waitForClick();
+		removeAll();
+		run();
 	}
 	
 	private void updatePoints(GObject brick) {
