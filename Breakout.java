@@ -121,13 +121,13 @@ public class Breakout extends GraphicsProgram {
 	
 	private void animateBall() {
 		ball.sendToBack();
-		vx = rgen.nextDouble(1.0, 3.0);
+		vx = rgen.nextDouble(MIN_VELOCITY, MAX_VELOCITY);
 		if (rgen.nextBoolean()) vx = -vx;
-		vy = 3.0;
+		vy = MAX_VELOCITY;
 		while (true) {
-			//GLabel sign = new GLabel("" + collidee + ", surface = " + surface, 10, 10); add(sign);
+			waitForClick();
 			ball.move(vx, vy);
-			pause(10);
+			pause(PAUSE_TIME);
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
 			getCollidingObject();
@@ -143,7 +143,6 @@ public class Breakout extends GraphicsProgram {
 				if (surface == 3 || surface == 9) vx = -vx;
 				remove(collidee);
 			}	
-			//remove(sign);
 		}
 	}
 	
@@ -179,6 +178,9 @@ public class Breakout extends GraphicsProgram {
 	private GObject collidee = null;
 	private int surface = 0;
 	private double vx, vy;
+	private static final int PAUSE_TIME = 10;
+	private static final double MAX_VELOCITY = 3.0;
+	private static final double MIN_VELOCITY = 1.0;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 }
