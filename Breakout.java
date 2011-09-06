@@ -125,6 +125,7 @@ public class Breakout extends GraphicsProgram {
 		if (rgen.nextBoolean()) vx = -vx;
 		vy = 3.0;
 		while (true) {
+			GLabel sign = new GLabel("hello", 10, 10); add(sign);
 			ball.move(vx, vy);
 			pause(500);
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
@@ -135,7 +136,7 @@ public class Breakout extends GraphicsProgram {
 				if (surface == 3 || surface == 9) vx = -vx;
 				//if (collidee != paddle) remove(collidee);
 			}
-			add(new GLabel("hello", 10, 10));
+			remove(sign);
 		}
 	}
 	
