@@ -135,6 +135,7 @@ public class Breakout extends GraphicsProgram {
 				if (surface == 3 || surface == 9) vx = -vx;
 				//if (collidee != paddle) remove(collidee);
 			}
+			add(new GLabel("hello", 10, 10));
 		}
 	}
 	
