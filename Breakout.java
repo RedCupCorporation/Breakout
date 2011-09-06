@@ -132,9 +132,14 @@ public class Breakout extends GraphicsProgram {
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
 			getCollidingObject();
 			if (collidee == paddle) {
-				if (surface == 6) vy = -vy;
-				if (surface == 3 || surface == 9) vx = -vx;
-			} else if (collidee != null) {
+				if (surface == 6) {
+					ball.setLocation(ball.getX(), HEIGHT - PADDLE_Y_OFFSET);
+					vy = -vy;
+				} else if (surface == 3 || surface == 9) {
+					vx = -vx;
+				}
+			} else if (collidee != void) {
+				
 				remove(collidee);
 			}
 			//remove(sign);
