@@ -111,10 +111,13 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void drawLivesLeft() {
-		int x = BALLS_OFFSET + i * (BALL_RADIUS + 3);
-		int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
 		for (int i = 0; i < turnsLeft; i++) {
-			add(new GOval(BALL_RADIUS, BALL_RADIUS, x, y));
+			int x = BALLS_OFFSET + i * (BALL_RADIUS + 3);
+			int y = HEIGHT - BALL_RADIUS - BALLS_OFFSET;
+			GOval miniBall = new GOval(BALL_RADIUS, BALL_RADIUS, x, y);
+			miniBall.setFilled(true);
+			miniBall.setFillColor(Color.black);
+			add(miniBall);
 		}		
 	}
 	
