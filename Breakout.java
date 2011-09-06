@@ -39,7 +39,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int NBRICK_ROWS = 10;
 
 /** Separation between bricks */
-	private static final int BRICK_SEP = 5;
+	private static final int BRICK_SEP = 4;
 
 /** Width of a brick */
 	private static final int BRICK_WIDTH =
@@ -63,6 +63,7 @@ public class Breakout extends GraphicsProgram {
 	private static final double MIN_VELOCITY = 1.0;
 	private static final int BALLS_OFFSET = 5;
 	private static final double VX_SCALE = 3.0;
+	private static final int STARTING_BRICKS = NBRICKS_PER_ROW * NBRICK_ROWS;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -76,6 +77,7 @@ public class Breakout extends GraphicsProgram {
 		drawBricks();
 		drawPaddle();
 		drawLivesLeft();
+		drawPoints();
 	}
 	
 	private void drawBricks() {
@@ -118,6 +120,10 @@ public class Breakout extends GraphicsProgram {
 			GBall miniBall = new GBall(BALL_RADIUS, BALL_RADIUS, Color.black);
 			add(miniBall, x, y);
 		}		
+	}
+	
+	private void drawPoints() {
+		add(pointDisplay);
 	}
 	
 	private void updateLivesLeft() {
@@ -189,13 +195,14 @@ public class Breakout extends GraphicsProgram {
 				
 			} else if (collidee != null && collidee.getY() > HEIGHT - PADDLE_Y_OFFSET) {
 				
-				/* If the ball hits a brick, reverse the ball's direction 
-				 * Allows for weirdness with ball tunnelling through bricks */
+				/* If the ball hits a brick, remove brick and reverse the ball's direction 
+				 * Allows for weirdness with ball tunneling through bricks */
 				
 			} else if (collidee != null) {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
 				remove(collidee);
+				updatePoints(collidee);
 				bricksLeft--;
 			}	
 			
@@ -266,6 +273,22 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
+	private void updatePoints(GObject brick) {
+		int a = 1; int b = 1;
+		if (brick.getColor() == Color.red) {
+			a = 5; b = 1;
+		} else if (brick.getColor() == Color.orange) {
+			a = 3; b = 2;
+		} else if (brick.getColor() == Color.yellow) {
+			a = 1; b = 3;
+		} else if (brick.getColor() == Color.green) {
+			a = -3; b = 4;
+		} else if (brick.getColor() == Color.cyan) {
+			a = -5; b = 5;
+		}
+		points += (bricksLeft - 1) / (STARTING_BRICKS / a) + b;	
+	}
+	
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GBall ball = new GBall(2 * BALL_RADIUS, 2 * BALL_RADIUS, Color.black);
@@ -274,7 +297,9 @@ public class Breakout extends GraphicsProgram {
 	private double vx, vy;
 	private int livesLeft = NTURNS;
 	private int result = 0;
-	private int bricksLeft = NBRICK_ROWS * NBRICKS_PER_ROW;
+	private int points = 0;
+	private int bricksLeft = STARTING_BRICKS;
+	private GLabel pointDisplay = new GLabel("points: " + points);
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 }
