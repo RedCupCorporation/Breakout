@@ -130,11 +130,12 @@ public class Breakout extends GraphicsProgram {
 			if (ball.getX() < 0 || ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -vx;
 			if (ball.getY() < 0 || ball.getY() > HEIGHT - 2 * BALL_RADIUS) vy = -vy;
 			GObject collidee = getCollidingObject(ball.getLocation());
-			if (collidee != null) {
+			/*if (collidee != null) {
 				if (surface == 6 || surface == 12) vy = -vy;
 				if (surface == 3 || surface == 9) vx = -vx;
 				if (collidee != paddle) remove(collidee);
 			}
+			*/
 		}
 	}
 	
@@ -145,16 +146,16 @@ public class Breakout extends GraphicsProgram {
 		GObject collidee = null;
 		for (int i = 0; i < 4; i++) {
 			switch (i) {
-			case 0: collidee = getElementAt(ball.getX() + 10, ball.getY() + BALL_RADIUS + 10); 
+			case 0: collidee = getElementAt(ball.getX(), ball.getY() + BALL_RADIUS); 
 					surface = 9;
 					break;
-			case 1: collidee = getElementAt(ball.getX() + BALL_RADIUS + 10, ball.getY() + 10); 
+			case 1: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY()); 
 					surface = 12;
 					break;
-			case 2: collidee = getElementAt(ball.getX() + BALL_RADIUS + 10, ball.getY() + 2 * BALL_RADIUS + 10); 
+			case 2: collidee = getElementAt(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS); 
 					surface = 6;
 					break;
-			case 3: collidee = getElementAt(ball.getX() + 2 * BALL_RADIUS + 10, ball.getY() + BALL_RADIUS + 10); 
+			case 3: collidee = getElementAt(ball.getX() + 2 * BALL_RADIUS, ball.getY() + BALL_RADIUS); 
 					surface = 3;
 					break;
 			}
