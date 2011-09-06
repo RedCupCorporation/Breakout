@@ -169,7 +169,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GOval ball = new GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS);
-	private int surface;
+	private int surface = 0;
 	private double vx, vy;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
