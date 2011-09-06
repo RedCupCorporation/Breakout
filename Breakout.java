@@ -145,8 +145,8 @@ public class Breakout extends GraphicsProgram {
 		GObject collidee = null;
 		GPoint left = new GPoint(ball.getX(), ball.getY() + BALL_RADIUS);
 		GPoint right = new GPoint(ball.getX() + 2 * BALL_RADIUS, ball.getY() + BALL_RADIUS);
-		GPoint top = new GPoint(ball.getX() + BALL_RADIUS, ball.getY());
-		GPoint bottom = new GPoint(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS);
+		GPoint bottom = new GPoint(ball.getX() + BALL_RADIUS, ball.getY());
+		GPoint top = new GPoint(ball.getX() + BALL_RADIUS, ball.getY() + 2 * BALL_RADIUS);
 		if (getElementAt(bottom) != null) {
 			collidee = getElementAt(bottom);
 			surface = 6;
