@@ -26,7 +26,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int HEIGHT = APPLICATION_HEIGHT;
 
 /** Dimensions of the paddle */
-	private static final int PADDLE_WIDTH = 80;
+	private static final int PADDLE_WIDTH = 100;
 	private static final int PADDLE_HEIGHT = 10;
 
 /** Offset of the paddle up from the bottom */
@@ -62,7 +62,7 @@ public class Breakout extends GraphicsProgram {
 	private static final double MAX_VELOCITY = 3.5;
 	private static final double MIN_VELOCITY = 1.0;
 	private static final int BALLS_OFFSET = 5;
-	private static final double VX_SCALE = 3.0;
+	private static final double VX_SCALE = 4.0;
 	private static final int STARTING_BRICKS = NBRICKS_PER_ROW * NBRICK_ROWS;
 
 /* Method: run() */
