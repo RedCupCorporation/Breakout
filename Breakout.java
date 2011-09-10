@@ -64,6 +64,8 @@ public class Breakout extends GraphicsProgram {
 	private static final int BALLS_OFFSET = 5;
 	private static final double VX_SCALE = 4.0;
 	private static final int STARTING_BRICKS = NBRICKS_PER_ROW * NBRICK_ROWS;
+	private static final String LOSER_STR = "Game Over";
+	private static final String WINNER_STR = "You Win!";
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -269,11 +271,11 @@ public class Breakout extends GraphicsProgram {
 		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + finalScore);
 		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT * 3 / 5);
 		if (result == 0) {
-			GLabel loser = new GLabel("Try Again, kenzie");
+			GLabel loser = new GLabel(LOSER_STR);
 			loser.setFont("SansSerif-bold-50");
 			add(loser, (WIDTH - loser.getWidth()) / 2, (HEIGHT - loser.getAscent()) / 2);
 		} else {
-			GLabel winner = new GLabel("You Win");
+			GLabel winner = new GLabel(WINNER_STR);
 			winner.setFont("SansSerif-bold-50");
 			add(winner, (WIDTH - winner.getWidth()) / 2, (HEIGHT - winner.getAscent()) / 2);
 		}
@@ -325,3 +327,4 @@ public class Breakout extends GraphicsProgram {
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 }
+
