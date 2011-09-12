@@ -66,6 +66,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int STARTING_BRICKS = NBRICKS_PER_ROW * NBRICK_ROWS;
 	private static final String LOSER_STR = "Game Over";
 	private static final String WINNER_STR = "You Win!";
+	private static int HIGH_SCORE = 1;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -266,6 +267,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private void endGame() {
 		int finalScore = points + livesLeft * 25;
+		HIGH_SCORE = 2;
 		remove(pointDisplay);
 		pointDisplay.setFont("SansSerif-25");
 		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + finalScore);
