@@ -67,7 +67,7 @@ public class Breakout extends GraphicsProgram {
 	private static final String LOSER_STR = "Game Over";
 	private static final String WINNER_STR = "You Win!";
 	private static final int HIGH_SCORE = 0;
-	private static final double HIGH_SCORE_DISPLAY_LOCATION = 2 / 3.0;
+	private static final double HIGH_SCORE_DISPLAY_LOCATION = 4 / 5.0;
 
 /* Method: run() */
 /** Runs the Breakout program. */
