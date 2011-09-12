@@ -274,7 +274,6 @@ public class Breakout extends GraphicsProgram {
 	
 	private void endGame() {
 		int finalScore = points + livesLeft * 25;
-		remove(pointDisplay);
 		pointDisplay.setFont("SansSerif-25");
 		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + finalScore);
 		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT * 3 / 5);
