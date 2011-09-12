@@ -66,7 +66,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int STARTING_BRICKS = NBRICKS_PER_ROW * NBRICK_ROWS;
 	private static final String LOSER_STR = "Game Over";
 	private static final String WINNER_STR = "You Win!";
-	private static int HIGH_SCORE = 1;
+	private static final int HIGH_SCORE = 0;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -81,6 +81,7 @@ public class Breakout extends GraphicsProgram {
 		drawPaddle();
 		drawLivesLeft();
 		drawPoints();
+		drawHighScore();
 	}
 	
 	private void drawBricks() {
@@ -128,6 +129,11 @@ public class Breakout extends GraphicsProgram {
 	private void drawPoints() {
 		pointDisplay.setLabel("points: " + points);
 		add(pointDisplay, WIDTH - pointDisplay.getWidth() - 5, HEIGHT - 5);
+	}
+	
+	private void drawHighScore() {
+		highScoreDisplay.setLabel("high score: " + hs);
+		add(highScoreDisplay, WIDTH - pointDisplay.getWidth() - highScoreDisplay.getWidth() - 5, HEIGHT - 5);
 	}
 	
 	private void updateLivesLeft() {
@@ -267,11 +273,15 @@ public class Breakout extends GraphicsProgram {
 	
 	private void endGame() {
 		int finalScore = points + livesLeft * 25;
-		HIGH_SCORE++;
 		remove(pointDisplay);
 		pointDisplay.setFont("SansSerif-25");
-		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + HIGH_SCORE);
+		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + finalScore);
 		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT * 3 / 5);
+		if (points > hs) {
+			GLabel newHS = new GLabel("NEW HIGH SCORE!");
+			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 4 / 5);
+			updateHighScore();
+		}
 		if (result == 0) {
 			GLabel loser = new GLabel(LOSER_STR);
 			loser.setFont("SansSerif-bold-50");
@@ -315,6 +325,12 @@ public class Breakout extends GraphicsProgram {
 		drawPoints();
 	}
 	
+	private void updateHighScore() {
+		hs = points;
+		remove(highScoreDisplay);
+		drawHighScore();
+	}
+	
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GBall ball = new GBall(2 * BALL_RADIUS, 2 * BALL_RADIUS, Color.black);
@@ -324,8 +340,10 @@ public class Breakout extends GraphicsProgram {
 	private int livesLeft = NTURNS;
 	private int result = 0;
 	private int points = 0;
+	private int hs = HIGH_SCORE;
 	private int bricksLeft = STARTING_BRICKS;
 	private GLabel pointDisplay = new GLabel("points: " + points);
+	private GLabel highScoreDisplay = new GLabel("high score: " + hs);
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 }
