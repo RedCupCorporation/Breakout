@@ -281,7 +281,7 @@ public class Breakout extends GraphicsProgram {
 		if (points > hs) {
 			GLabel newHS = new GLabel("NEW HIGH SCORE!");
 			newHS.setFont("SansSerif-20");
-			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 4 / 5);
+			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 7 / 10);
 			remove(highScoreDisplay);
 			updateHighScore();
 		}
