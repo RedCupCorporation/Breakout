@@ -67,6 +67,7 @@ public class Breakout extends GraphicsProgram {
 	private static final String LOSER_STR = "Game Over";
 	private static final String WINNER_STR = "You Win!";
 	private static final int HIGH_SCORE = 0;
+	private static final double HIGH_SCORE_DISPLAY_LOCATION = 2 / 3;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -133,7 +134,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private void drawHighScore() {
 		highScoreDisplay.setLabel("high score: " + hs);
-		add(highScoreDisplay, WIDTH - pointDisplay.getWidth() - highScoreDisplay.getWidth() - 20, HEIGHT - 5);
+		add(highScoreDisplay, HIGH_SCORE_DISPLAY_LOCATION * (WIDTH - highScoreDisplay.getWidth()), HEIGHT - 5);
 	}
 	
 	private void updateLivesLeft() {
