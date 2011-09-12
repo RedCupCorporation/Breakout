@@ -133,7 +133,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private void drawHighScore() {
 		highScoreDisplay.setLabel("high score: " + hs);
-		add(highScoreDisplay, WIDTH - pointDisplay.getWidth() - highScoreDisplay.getWidth() - 5, HEIGHT - 5);
+		add(highScoreDisplay, WIDTH - pointDisplay.getWidth() - highScoreDisplay.getWidth() - 20, HEIGHT - 5);
 	}
 	
 	private void updateLivesLeft() {
