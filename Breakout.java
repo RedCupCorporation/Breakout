@@ -66,7 +66,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int STARTING_BRICKS = NBRICKS_PER_ROW * NBRICK_ROWS;
 	private static final String LOSER_STR = "Game Over";
 	private static final String WINNER_STR = "You Win!";
-	private static final int HIGH_SCORE = 0;
+	private static final int HIGH_SCORE = 974;
 	private static final double HIGH_SCORE_DISPLAY_LOCATION = 4 / 5.0;
 
 /* Method: run() */
@@ -283,7 +283,7 @@ public class Breakout extends GraphicsProgram {
 			newHS.setFont("SansSerif-20");
 			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 7 / 10);
 			remove(highScoreDisplay);
-			updateHighScore();
+			updateHighScore(finalScore);
 		}
 		if (result == 0) {
 			GLabel loser = new GLabel(LOSER_STR);
@@ -328,8 +328,8 @@ public class Breakout extends GraphicsProgram {
 		drawPoints();
 	}
 	
-	private void updateHighScore() {
-		hs = points;
+	private void updateHighScore(int total) {
+		hs = total;
 	}
 	
 	
