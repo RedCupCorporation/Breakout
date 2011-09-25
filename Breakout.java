@@ -202,7 +202,7 @@ public class Breakout extends GraphicsProgram {
 					vx = Math.abs(vx);
 				}
 				
-				/* If the ball hits one of the miniballs denoting lives left, ignore it */
+				/* If the ball hits anything below the paddle, ignore it */
 				
 			} else if (collidee != null && collidee.getY() > HEIGHT - PADDLE_Y_OFFSET) {
 				
@@ -265,12 +265,21 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	
+	/*
+	 * Adjusts the horizontal movement of the ball depending on where on the paddle it hit
+	 * Allows for the player to control the direction of the ball
+	 */
+	
 	private double updateVX() {
 		double midBall = ball.getX() + BALL_RADIUS;
 		double paddlePct = ((midBall - paddle.getX()) / PADDLE_WIDTH - 0.5) * 2;
 		double newVX = Math.min(MAX_VELOCITY, Math.max(-MAX_VELOCITY, vx + paddlePct * VX_SCALE));
 		return newVX;
 	}
+	
+	/*
+	 * Determines what happens at the end of the game
+	 */
 	
 	private void endGame() {
 		int finalScore = points + livesLeft * 25;
@@ -297,6 +306,10 @@ public class Breakout extends GraphicsProgram {
 		waitForClick();
 		restart();
 	}
+	
+	/* 
+	 * Starts a new game 
+	 */
 	
 	private void restart() {
 		removeAll();
