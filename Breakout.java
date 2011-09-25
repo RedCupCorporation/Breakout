@@ -11,9 +11,9 @@ import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
 
-import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class Breakout extends GraphicsProgram {
 
@@ -68,6 +68,7 @@ public class Breakout extends GraphicsProgram {
 	private static final String WINNER_STR = "You Win!";
 	private static final int HIGH_SCORE = 1160;
 	private static final double HIGH_SCORE_DISPLAY_LOCATION = 4 / 5.0;
+	private static final String LEADERBOARD = "high_scores.txt";
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -287,13 +288,7 @@ public class Breakout extends GraphicsProgram {
 		pointDisplay.setFont("SansSerif-25");
 		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + finalScore);
 		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT * 3 / 5);
-		if (points > hs) {
-			GLabel newHS = new GLabel("NEW HIGH SCORE!");
-			newHS.setFont("SansSerif-20");
-			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 7 / 10);
-			remove(highScoreDisplay);
-			updateHighScore(finalScore);
-		}
+		updateHighScore(finalScore);
 		if (result == 0) {
 			GLabel loser = new GLabel(LOSER_STR);
 			loser.setFont("SansSerif-bold-50");
@@ -342,6 +337,13 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void updateHighScore(int total) {
+		BufferedReader highScores = new BufferedReader(new FileReader("high_scores.txt"));
+		if (points > hs) {
+			GLabel newHS = new GLabel("NEW HIGH SCORE!");
+			newHS.setFont("SansSerif-20");
+			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 7 / 10);
+			remove(highScoreDisplay);
+		}
 		hs = total;
 	}
 	
