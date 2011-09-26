@@ -68,7 +68,7 @@ public class Breakout extends GraphicsProgram {
 	private static final String WINNER_STR = "You Win!";
 	private static final int HIGH_SCORE = 1160;
 	private static final double HIGH_SCORE_DISPLAY_LOCATION = 4 / 5.0;
-	private static final String LEADERBOARD = "high_scores.txt";
+	private static final String LEADERBOARD = "hs.txt";
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -337,7 +337,14 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void updateHighScore(int total) {
-		BufferedReader highScores = new BufferedReader(new FileReader("high_scores.txt"));
+		BufferedReader highScores = new BufferedReader(new FileReader(LEADERBOARD));
+		while (true) {
+			String line = highScores.readLine();
+			if (line == null) break;
+		}
+		highScores.close();
+		
+		
 		if (points > hs) {
 			GLabel newHS = new GLabel("NEW HIGH SCORE!");
 			newHS.setFont("SansSerif-20");
