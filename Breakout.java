@@ -42,8 +42,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int BRICK_SEP = 4;
 
 /** Width of a brick */
-	private static final int BRICK_WIDTH =
-	  (WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
+	private static final int BRICK_WIDTH = (WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
 
 /** Height of a brick */
 	private static final int BRICK_HEIGHT = 8;
@@ -57,18 +56,33 @@ public class Breakout extends GraphicsProgram {
 /** Number of turns */
 	private static final int NTURNS = 3;
 	
-/** Other constants */
+/** Pause time in milliseconds between updates to ball location in while loop */
 	private static final int PAUSE_TIME = 10;
+	
+/** Max and min horizontal velocity of the ball, and constant vertical velocity (max) */
 	private static final double MAX_VELOCITY = 3.5;
 	private static final double MIN_VELOCITY = 1.0;
+	
+/** Pixel offset from left wall for balls left display */
 	private static final int BALLS_OFFSET = 5;
+	
+/** Scale factor for controlling horizontal velocity of the ball after bouncing on paddle */
 	private static final double VX_SCALE = 4.0;
+	
+/** Number of bricks at the start of the game */
 	private static final int STARTING_BRICKS = NBRICKS_PER_ROW * NBRICK_ROWS;
+	
+/** Strings to be displayed at the end of the game */
 	private static final String LOSER_STR = "Game Over";
 	private static final String WINNER_STR = "You Win!";
 	private static final int HIGH_SCORE = 1160;
+	
+/** x-location of the high score display, as percentage of APPLICATION_WIDTH */
 	private static final double HIGH_SCORE_DISPLAY_LOCATION = 4 / 5.0;
+	
+/** Leaderboard file location and constants */
 	private static final String LEADERBOARD = "high_scores.txt";
+	private static final int NUMBER_OF_HIGH_SCORES = 10;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -167,77 +181,102 @@ public class Breakout extends GraphicsProgram {
 		
 		/* Setup the ball and wait for the click */
 		
-		drawBall();
-		vx = rgen.nextDouble(MIN_VELOCITY, MAX_VELOCITY);
-		if (rgen.nextBoolean()) vx = -vx;
-		vy = MAX_VELOCITY;
+		setupBall();
 		waitForClick();
 		
 		/* Run the game */
 		
 		while (true) {
 			ball.move(vx, vy);
-			pause(PAUSE_TIME);
-			
-			/* Check for wall collisions */
-			
-			if (ball.getX() < 0) vx = Math.abs(vx);
-			if (ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -Math.abs(vx);
-			if (ball.getY() < 0) vy = Math.abs(vy);
+			pause(PAUSE_TIME);			
+			checkForWallCollisions();
 			
 			/* Check for collisions with paddle or bricks */
 			
-			getCollidingObject();
+			GObject collidee = getCollidingObject();
+			if (collidee != null) respondToCollision(collidee);
 			
-			/* Reverse ball direction after hitting paddle
-			 * Don't let the ball get stuck inside the paddle */
-			
-			if (collidee == paddle) {
-				if (surface == 6) {
-					ball.setLocation(ball.getX(), HEIGHT - PADDLE_Y_OFFSET - 2 * BALL_RADIUS);
-					vy = -vy;
-					vx = updateVX();
-				} else if (surface == 3) {
-					vx = -Math.abs(vx);
-				} else if (surface == 9) {
-					vx = Math.abs(vx);
-				}
-				
-				/* If the ball hits anything below the paddle, ignore it */
-				
-			} else if (collidee != null && collidee.getY() > HEIGHT - PADDLE_Y_OFFSET) {
-				
-				/* If the ball hits a brick, remove brick and reverse the ball's direction 
-				 * Allows for weirdness with ball tunneling through bricks */
-				
-			} else if (collidee != null) {
-				if (surface == 6 || surface == 12) vy = -vy;
-				if (surface == 3 || surface == 9) vx = -vx;
-				remove(collidee);
-				updatePoints(collidee);
-				bricksLeft--;
-			}	
-			
-			/* End turn if ball hits bottom wall */
-			
-			if (ball.getY() > HEIGHT - 2 * BALL_RADIUS) {
-				remove(ball);
-				result = 0;
-				updateLivesLeft();
+			if (isEndOfTurn()) {
+				endTurn();
 				break;
 			}
 			
-			/* End game if ball hits final brick */
-			
-			if (bricksLeft == 0) {
-				remove(ball);
-				result = 1;
+			if (isLastBrick()) {
+				endWinner();
 				break;
 			}
 		}
 	}
 	
-	private void getCollidingObject() {
+	private void setupBall() {
+		drawBall();
+		vx = rgen.nextDouble(MIN_VELOCITY, MAX_VELOCITY);
+		if (rgen.nextBoolean()) vx = -vx;
+		vy = MAX_VELOCITY;
+	}
+	
+	private void checkForWallCollisions() {
+		if (ball.getX() < 0) vx = Math.abs(vx);
+		if (ball.getX() > WIDTH - 2 * BALL_RADIUS) vx = -Math.abs(vx);
+		if (ball.getY() < 0) vy = Math.abs(vy);
+	}
+	
+	private void respondToCollision(GObject collidee) {
+
+		/* Reverse ball direction after hitting paddle
+		 * Don't let the ball get stuck inside the paddle */
+		
+		if (collidee == paddle) {
+			if (surface == 6) {
+				ball.setLocation(ball.getX(), HEIGHT - PADDLE_Y_OFFSET - 2 * BALL_RADIUS);
+				vy = -vy;
+				vx = updateVX();
+			} else if (surface == 3) {
+				vx = -Math.abs(vx);
+			} else if (surface == 9) {
+				vx = Math.abs(vx);
+			}
+			
+			/* If the ball hits anything below the paddle, ignore it */
+			
+		} else if (collidee.getY() > HEIGHT - PADDLE_Y_OFFSET) {
+			
+			/* If the ball hits a brick, remove brick and reverse the ball's direction 
+			 * Allows for weirdness with ball tunneling through bricks */
+			
+		} else {
+			if (surface == 6 || surface == 12) vy = -vy;
+			if (surface == 3 || surface == 9) vx = -vx;
+			remove(collidee);
+			updatePoints(collidee);
+			bricksLeft--;
+		}	
+	}
+	
+	private boolean isEndOfTurn() {
+		/* End turn if ball hits bottom wall */
+		return ball.getY() > HEIGHT - 2 * BALL_RADIUS;
+	}
+	
+	private void endTurn() {
+		remove(ball);
+		result = 0;
+		updateLivesLeft();
+	}
+	
+	private boolean isLastBrick() {
+		/* End game if ball hits final brick */
+		return bricksLeft == 0;
+	}
+	
+	private void endWinner() {
+		remove(ball);
+		result = 1;
+	}
+	
+	private GObject getCollidingObject() {
+		
+		GObject collidee = null;
 		
 		/* Define 3, 6, 9, and 12 o'clock locations of the ball */
 		
@@ -264,6 +303,7 @@ public class Breakout extends GraphicsProgram {
 			collidee = null;
 			surface = 0;
 		}
+		return collidee;
 	}
 	
 	/*
@@ -288,7 +328,7 @@ public class Breakout extends GraphicsProgram {
 		pointDisplay.setFont("SansSerif-25");
 		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + finalScore);
 		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT * 3 / 5);
-		updateHighScore(finalScore);
+		checkForHighScore(finalScore);
 		if (result == 0) {
 			GLabel loser = new GLabel(LOSER_STR);
 			loser.setFont("SansSerif-bold-50");
@@ -308,7 +348,6 @@ public class Breakout extends GraphicsProgram {
 	
 	private void restart() {
 		removeAll();
-		collidee = null;                              
 		surface = 0;                                      
 		livesLeft = NTURNS;                               
 		result = 0;                                       
@@ -336,41 +375,57 @@ public class Breakout extends GraphicsProgram {
 		drawPoints();
 	}
 	
-	private void updateHighScore(int total) {
-		BufferedReader highScores = openFile();
+	private void checkForHighScore(int score) {
+		BufferedReader highScores = openFile(LEADERBOARD);
 		try {
-			while (true) {
+			for (int i = 0; i < NUMBER_OF_HIGH_SCORES; i++) {
 				String line = highScores.readLine();
 				if (line == null) break;
+				// tokenize string to break into integer and string PlayerName
+				// compare score to high score integer
+				// if more, record new entry
 			}
 			highScores.close();
 		} catch (IOException ex) {
 			throw new ErrorException(ex);
 		}
+	}
+	
+	private void recordNewHighScore(int score) {
 		
+	}
 		
+	private void updateHighScoreDisplay() {
 		if (points > hs) {
 			GLabel newHS = new GLabel("NEW HIGH SCORE!");
 			newHS.setFont("SansSerif-20");
 			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 7 / 10);
 			remove(highScoreDisplay);
 		}
-		hs = total;
 	}
 	
-	private BufferedReader openFile() {
+	private BufferedReader openFile(String file) {
 		try {
-			return new BufferedReader(new FileReader(LEADERBOARD));
+			return new BufferedReader(new FileReader(file));
 		} catch (IOException ex) {
-			// create new high score file
+			// create new high score file?
 			return null;
 		}
 	}
 	
+	/*
+	private PrintReader createNewFile() {
+		try {
+			return new PrintWriter(new FileWriter(LEADERBOARD));
+		} catch (IOException ex1) {
+			throw new ErrorException(ex1);
+		}
+	}
+	*/
+	
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
 	private GBall ball = new GBall(2 * BALL_RADIUS, 2 * BALL_RADIUS, Color.black);
-	private GObject collidee = null;
 	private int surface = 0;
 	private double vx, vy;
 	private int livesLeft = NTURNS;
