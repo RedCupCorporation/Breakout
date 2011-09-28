@@ -328,7 +328,10 @@ public class Breakout extends GraphicsProgram {
 		pointDisplay.setFont("SansSerif-25");
 		pointDisplay.setLabel("total points = " + points + " + " + livesLeft + " * 25 = " + finalScore);
 		add(pointDisplay, (WIDTH - pointDisplay.getWidth()) / 2, HEIGHT * 3 / 5);
-		checkForHighScore(finalScore);
+		if (finalScore > hs) {
+			GLabel newHighScore = new GLabel("NEW HIGH SCORE!");
+			add(newHighScore, (WIDTH - newHighScore.getWidth()) / 2, HEIGHT * 4 / 5);
+		}
 		if (result == 0) {
 			GLabel loser = new GLabel(LOSER_STR);
 			loser.setFont("SansSerif-bold-50");
@@ -374,54 +377,6 @@ public class Breakout extends GraphicsProgram {
 		remove(pointDisplay);
 		drawPoints();
 	}
-	
-	private void checkForHighScore(int score) {
-		BufferedReader highScores = openFile(LEADERBOARD);
-		try {
-			for (int i = 0; i < NUMBER_OF_HIGH_SCORES; i++) {
-				String line = highScores.readLine();
-				if (line == null) break;
-				// tokenize string to break into integer and string PlayerName
-				// compare score to high score integer
-				// if more, record new entry
-			}
-			highScores.close();
-		} catch (IOException ex) {
-			throw new ErrorException(ex);
-		}
-	}
-	
-	private void recordNewHighScore(int score) {
-		
-	}
-		
-	private void updateHighScoreDisplay() {
-		if (points > hs) {
-			GLabel newHS = new GLabel("NEW HIGH SCORE!");
-			newHS.setFont("SansSerif-20");
-			add(newHS, (WIDTH - newHS.getWidth()) / 2, HEIGHT * 7 / 10);
-			remove(highScoreDisplay);
-		}
-	}
-	
-	private BufferedReader openFile(String file) {
-		try {
-			return new BufferedReader(new FileReader(file));
-		} catch (IOException ex) {
-			// create new high score file?
-			return null;
-		}
-	}
-	
-	/*
-	private PrintReader createNewFile() {
-		try {
-			return new PrintWriter(new FileWriter(LEADERBOARD));
-		} catch (IOException ex1) {
-			throw new ErrorException(ex1);
-		}
-	}
-	*/
 	
 	
 	private GBrick paddle = new GBrick(PADDLE_WIDTH, PADDLE_HEIGHT, Color.black);
