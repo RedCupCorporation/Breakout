@@ -1,10 +1,9 @@
 /*
  * File: Breakout.java
  * -------------------
- * Name:
- * Section Leader:
+ * Name: Colin Regan
  * 
- * This file will eventually implement the game of Breakout.
+ * This file implements the game Breakout.
  */
 
 import acm.graphics.*;
@@ -13,7 +12,6 @@ import acm.util.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 
 public class Breakout extends GraphicsProgram {
 
@@ -75,14 +73,10 @@ public class Breakout extends GraphicsProgram {
 /** Strings to be displayed at the end of the game */
 	private static final String LOSER_STR = "Game Over";
 	private static final String WINNER_STR = "You Win!";
-	private static final int HIGH_SCORE = 1160;
+	private static final int HIGH_SCORE = 0; // 1160
 	
 /** x-location of the high score display, as percentage of APPLICATION_WIDTH */
 	private static final double HIGH_SCORE_DISPLAY_LOCATION = 4 / 5.0;
-	
-/** Leaderboard file location and constants */
-	private static final String LEADERBOARD = "high_scores.txt";
-	private static final int NUMBER_OF_HIGH_SCORES = 10;
 
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -331,6 +325,7 @@ public class Breakout extends GraphicsProgram {
 		if (finalScore > hs) {
 			GLabel newHighScore = new GLabel("NEW HIGH SCORE!");
 			add(newHighScore, (WIDTH - newHighScore.getWidth()) / 2, HEIGHT * 4 / 5);
+			hs = finalScore;
 		}
 		if (result == 0) {
 			GLabel loser = new GLabel(LOSER_STR);
